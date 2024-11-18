@@ -94,7 +94,7 @@ jobs:
     - name: 🚧 Build, test and release
       uses: ./utils/build-test-release
       with:
-        gcr_token: '${{ secrets.gcr_token }}'
+        # gcr_token: '${{ secrets.gcr_token }}'
         gh_token: '${{ github.token }}'
         docker_user: '${{ secrets.docker_user }}'
         docker_pass: '${{ secrets.docker_pass }}'
