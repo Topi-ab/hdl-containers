@@ -47,10 +47,10 @@ on:
         required: false
       docker_user:
         description: 'Docker Container Registry user name.'
-        required: false
+        required: true
       docker_pass:
         description: 'Docker Container Registry password.'
-        required: false
+        required: true
 
 env:
   DOCKER_BUILDKIT: 1
