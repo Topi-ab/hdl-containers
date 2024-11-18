@@ -31,7 +31,8 @@ from pyHDLC import CONFIG, _generateJobList, _NormaliseBuildParams
 
 ROOT = Path(__file__).resolve().parent.parent
 ARCH = "amd64"
-COLLECTION = "debian/bullseye"
+#COLLECTION = "debian/bullseye"
+COLLECTION = "debian-bullseye"
 CDIR = ROOT.parent / COLLECTION.replace("/", "-")
 
 

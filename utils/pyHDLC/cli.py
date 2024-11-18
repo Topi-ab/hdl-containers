@@ -59,7 +59,8 @@ class WithRegistryAttributes(Attribute):
                 dest="Registry",
                 type=str,
                 help="Container image registry prefix.",
-                default="gcr.io/hdl-containers",
+                #default="gcr.io/hdl-containers",
+                default="anybytes",
             ),
             ArgumentAttribute(
                 "-c",
@@ -67,7 +68,8 @@ class WithRegistryAttributes(Attribute):
                 dest="Collection",
                 type=str,
                 help="Name of the collection/subset of images.",
-                default="debian/bullseye",
+                #default="debian/bullseye",
+                default="debian-bullseye",
             ),
             ArgumentAttribute(
                 "-a",

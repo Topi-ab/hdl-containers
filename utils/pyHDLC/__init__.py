@@ -53,9 +53,11 @@ class ConfigDefaults(YamlDataClassConfig):
     """
 
     #: Default registry prefix.
-    registry: str = "gcr.io/hdl-containers"
+    #registry: str = "gcr.io/hdl-containers"
+    registry: str = "anybytes"
     #: Default collection.
-    collection: str = "debian/bullseye"
+    #collection: str = "debian/bullseye"
+    collection: str = "debian-bullseye"
     #: Default architecture.
     architecture: str = "amd64"
     #: Allows override default image build arguments.
