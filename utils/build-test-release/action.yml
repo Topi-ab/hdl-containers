@@ -92,7 +92,7 @@ runs:
         fi
         #echo '${{ inputs.gcr_token }}' | docker login gcr.io -u _json_key --password-stdin
         #echo '${{ inputs.gh_token }}' | docker login ghcr.io -u gha --password-stdin
-        echo '${{ inputs.docker_pass }}' | docker login docker.io -u '${{ inputs.docker_user }}' --password-stdin
+        echo '${{ inputs.docker_pass }}' | docker login   docker.io -u '${{ inputs.docker_user }}' --password-stdin
         dockerRelease ${{ inputs.architecture }} ${{ inputs.collection }} ${{ inputs.images }}
       #post: for registry in gcr.io ghcr.io docker.io; do docker logout "$registry"; done
       post: for registry in docker.io; do docker logout "$registry"; done
