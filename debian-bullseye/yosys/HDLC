@@ -26,6 +26,7 @@ makedepends=(
   flex
   gawk
   gcc
+  build-essential
   pkg-config
   zlib1g-dev
   clang
