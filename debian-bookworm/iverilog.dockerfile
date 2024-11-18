@@ -19,11 +19,13 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-ARG REGISTRY='gcr.io/hdl-containers/debian/bookworm'
+#ARG REGISTRY='gcr.io/hdl-containers/debian/bookworm'
+ARG REGISTRY='anybytes/debian-bookworm'
 
 #---
 
-FROM $REGISTRY/build/build AS build
+#FROM $REGISTRY/build/build AS build
+FROM $REGISTRY AS build
 
 RUN apt-get update -qq \
  && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
