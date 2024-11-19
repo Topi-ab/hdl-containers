@@ -301,7 +301,13 @@ def PullImage(
       Do not pull the image, just print the command that would be executed.
     """
     for img in [image] if isinstance(image, str) else image:
-        imageName = f"{registry}/{architecture}/{collection}/{img.split('#')[0]}"
+        img = img.split("#")[0]
+        # Convert paths to Docker Hub format immediately
+        if registry.startswith("anybytes"):
+            parts = [architecture, collection, img]
+            imageName = f"{registry}/{'-'.join(p.replace('/', '-') for p in parts)}"
+        else:
+            imageName = f"{registry}/{architecture}/{collection}/{img}"
         _exec(args=["docker", "pull", imageName], dry=dry, collapse=f"[Pull] Pull {imageName}")
 
 
@@ -412,7 +418,13 @@ def BuildImage(
             image=rimg, dockerfile=dockerfile, target=target, argimg=argimg, pkg=pkg, default=default
         )
 
-        imageName = f"{registry}/{architecture}/{collection}/{img}"
+        img = img.split("#")[0]
+        # Convert paths to Docker Hub format immediately
+        if registry.startswith("anybytes"):
+            parts = [architecture, collection, img]
+            imageName = f"{registry}/{'-'.join(p.replace('/', '-') for p in parts)}"
+        else:
+            imageName = f"{registry}/{architecture}/{collection}/{img}"
 
         cmd = ["docker", "build", "-t", imageName, "--progress=plain", "--build-arg", "BUILDKIT_INLINE_CACHE=1"]
         cmd += [
@@ -633,8 +645,12 @@ def PushImage(
     mirrors = [] if mirror is None else [mirror] if isinstance(mirror, str) else mirror
 
     for rimg in [image] if isinstance(image, str) else image:
+        # Note that '#' might be used in the image names as a package location, to be used in TestImage.
+        # This usage of '#' is different from the one in the mirror names below.
+        # There, it denotes keywords for replacement.
         img = rimg.split("#")[0]
-        imageName = f"{registry}/{architecture}/{collection}/{img}"
+        # imageName = f"{registry}/{architecture}/{collection}/{img}"
+        imageName = f"{registry}-{architecture}-{collection}-{img}"
         dpush([imageName])
 
         print("\nChecking version file...")
