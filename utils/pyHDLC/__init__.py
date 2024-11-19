@@ -633,9 +633,6 @@ def PushImage(
     mirrors = [] if mirror is None else [mirror] if isinstance(mirror, str) else mirror
 
     for rimg in [image] if isinstance(image, str) else image:
-        # Note that '#' might be used in the image names as a package location, to be used in TestImage.
-        # This usage of '#' is different from the one in the mirror names below.
-        # There, it denotes keywords for replacement.
         img = rimg.split("#")[0]
         imageName = f"{registry}/{architecture}/{collection}/{img}"
         dpush([imageName])
@@ -650,8 +647,15 @@ def PushImage(
 
         for mirror in mirrors:
             isDocker = mirror.startswith("docker.io")
-            mimg = img.replace("/", ":", 1).replace("/", "--") if isDocker else img
-            mirrorName = f"{mirror.replace('#A', architecture).replace('#C', collection)}/{mimg}"
+            if isDocker:
+                # Convert all slashes to hyphens for Docker Hub format
+                mimg = img.replace("/", "-")
+                # Add architecture as tag
+                mirrorName = f"{mirror}/{mimg}:{architecture}"
+            else:
+                mimg = img
+                mirrorName = f"{mirror.replace('#A', architecture).replace('#C', collection)}/{mimg}"
+            
             if isDocker or (versionString is None):
                 dtag(imageName, [mirrorName])
                 dpush([mirrorName])

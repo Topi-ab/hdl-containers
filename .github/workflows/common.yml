@@ -31,12 +31,12 @@ on:
       submodules:
         description: 'Whether to checkout submodules (false, true or recursive).'
         required: false
-        default: false
+        default: 'false'
         type: string
       skip-release:
         description: 'Skip pushing and mirroring to container registries.'
         required: false
-        default: false
+        default: 'false'
         type: string
     secrets:
       gcr_token:
